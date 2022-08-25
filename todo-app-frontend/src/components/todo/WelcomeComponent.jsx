@@ -1,13 +1,40 @@
 import { Link } from "react-router-dom";
+import HelloWorldService from "../../api/todo/HelloWorldService";
+import { useState } from "react";
 
 const WelcomeComponent = ({ params: { name } }) => {
+    const [welcomeMessage, setWelcomeMessage] = useState(null);
+
+    const getWelcomeMessage = () => {
+        HelloWorldService.executeHelloWorldService()
+        .then(res => {
+            console.log(res);
+            handleSuccessfulResponse(res);
+        })
+        .catch(error => console.log(error))
+    }
+    const handleSuccessfulResponse = (response) => {
+        setWelcomeMessage(response);
+    }
     return (
-        <>
-            <h1>Welcome!</h1>
-            <div className="container">
-                Welcome {name}. Manage your todos <Link className="li" to="/todos">here</Link>
-            </div>
-        </>
+      <>
+        <h1>Welcome!</h1>
+        <div className="container">
+          Welcome {name}. Manage your todos{" "}
+          <Link className="li" to="/todos">
+            here
+          </Link>
+        </div>
+        <div className="container">
+          Click for a personalised welcome!
+          <button onClick={getWelcomeMessage} className="btn btn-success">
+            Get Welcome message
+          </button>
+        </div>
+        <div className="container">
+          {welcomeMessage && <p>Welcome back {welcomeMessage.data}</p>}
+        </div>
+      </>
     );
 }
 
