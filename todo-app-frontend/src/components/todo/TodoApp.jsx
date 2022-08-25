@@ -1,4 +1,5 @@
 import LoginComponent from "./LoginComponent";
+import LogoutComponent from "./LogoutComponent";
 import ListTodosComponent from "./ListTodosComponent";
 import WelcomeComponent from "./WelcomeComponent";
 import {BrowserRouter as Router, Routes, Route} from 'react-router-dom';
@@ -10,7 +11,6 @@ import FooterComponent from "./FooterComponent";
 const TodoApp = () => {
     const LoginComponentWithNavigation = withNavigation(LoginComponent);
     const WelcomeComponentWithParams = withParams(WelcomeComponent);
-    const ListTodosComponentWithParams = withParams(ListTodosComponent);
 
     return (
       <div className="TodoApp">
@@ -20,7 +20,8 @@ const TodoApp = () => {
                 <Route path="/" exact element={<LoginComponentWithNavigation />} />
                 <Route path="/login" element={<LoginComponentWithNavigation />} />
                 <Route path="/welcome/:name" element={<WelcomeComponentWithParams />} />
-                <Route path="/todos" element={<ListTodosComponentWithParams />} />
+                <Route path="/todos" element={<ListTodosComponent />} />
+                <Route path="/logout" element={<LogoutComponent />} />
                 <Route
                 path="*"
                 element={
