@@ -35,23 +35,26 @@ const LoginComponent = ({ navigate }) => {
 
     return (
       <div>
-        {hasLoginFailed && <div>Invalid Credentials</div>}
-        {showLoginSuccess && <div>Successful Login</div>}
-        Username:
-        <input
-          type="text"
-          name="username"
-          value={username}
-          onChange={handleChange}
-        />
-        Password:
-        <input
-          type="password"
-          name="password"
-          value={password}
-          onChange={handleChange}
-        />
-        <button onClick={handleLogin}>Login</button>
+        <h1>Login</h1>
+        <div className="container">
+          {hasLoginFailed && <div className="alert alert-warning">Invalid Credentials</div>}
+          {showLoginSuccess && <div>Successful Login</div>}
+          Username:
+          <input
+            type="text"
+            name="username"
+            value={username}
+            onChange={handleChange}
+          />
+          Password:
+          <input
+            type="password"
+            name="password"
+            value={password}
+            onChange={handleChange}
+          />
+          <button className="btn btn-success" onClick={handleLogin}>Login</button>
+        </div>
       </div>
     );
 }

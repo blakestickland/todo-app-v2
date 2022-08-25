@@ -1,7 +1,7 @@
 import { useState } from "react";
 import TodoRow from "./TodoRow";
 
-const ListTodosComponent = ({ params: { name } }) => {
+const ListTodosComponent = () => {
     const [todos, setTodos] = useState([
       {
         id: 1,
@@ -18,25 +18,27 @@ const ListTodosComponent = ({ params: { name } }) => {
     ]);
     return (
       <div>
-        <h1>List Todos</h1>
-        <table>
-          <thead>
-            <tr>
-              <th>id</th>
-              <th>description</th>
-              <th>target date</th>
-              <th>Completed?</th>
-            </tr>
-          </thead>
-          <tbody>
-            {
-                todos && todos.map(
-                    todo =>
-                    <TodoRow key={todo.id} todo={todo} />
-                )
-            }
-          </tbody>
-        </table>
+        <h1>My Todos</h1>
+        <div className="container">
+            <table className="table">
+            <thead>
+                <tr>
+                <th>id</th>
+                <th>Description</th>
+                <th>Target date</th>
+                <th>Completed?</th>
+                </tr>
+            </thead>
+            <tbody>
+                {
+                    todos && todos.map(
+                        todo =>
+                        <TodoRow key={todo.id} todo={todo} />
+                    )
+                }
+            </tbody>
+            </table>
+        </div>
       </div>
     );
 }

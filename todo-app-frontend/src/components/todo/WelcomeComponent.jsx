@@ -2,11 +2,13 @@ import { Link } from "react-router-dom";
 
 const WelcomeComponent = ({ params: { name } }) => {
     return (
-        <div>
-            <h1>Welcome {name}</h1>
-            <h2> manage your todos <Link to="/todos">here</Link></h2>
-        </div>
-    )
+        <>
+            <h1>Welcome!</h1>
+            <div className="container">
+                Welcome {name}. Manage your todos <Link className="li" to="/todos">here</Link>
+            </div>
+        </>
+    );
 }
 
 export default WelcomeComponent;
