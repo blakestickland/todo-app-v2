@@ -6,15 +6,17 @@ const WelcomeComponent = ({ params: { name } }) => {
     const [welcomeMessage, setWelcomeMessage] = useState(null);
 
     const getWelcomeMessage = () => {
-        HelloWorldService.executeHelloWorldService()
-        .then(res => {
-            console.log(res);
-            handleSuccessfulResponse(res);
-        })
-        .catch(error => console.log(error))
+        // HelloWorldService.executeHelloWorldBeanService()
+        //   .then((res) => handleSuccessfulResponse(res))
+        //   .catch((error) => console.log(error));
+        
+        HelloWorldService.executeHelloWorldPathVariableService(name)
+          .then((res) => handleSuccessfulResponse(res))
+          .catch((error) => console.log(error));
     }
     const handleSuccessfulResponse = (response) => {
-        setWelcomeMessage(response);
+        console.log(response);
+        setWelcomeMessage(response.data.message);
     }
     return (
       <>
@@ -32,7 +34,7 @@ const WelcomeComponent = ({ params: { name } }) => {
           </button>
         </div>
         <div className="container">
-          {welcomeMessage && <p>Welcome back {welcomeMessage.data}</p>}
+          {welcomeMessage && <p>Welcome back {welcomeMessage}</p>}
         </div>
       </>
     );
