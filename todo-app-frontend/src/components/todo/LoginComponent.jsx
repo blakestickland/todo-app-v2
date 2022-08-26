@@ -1,4 +1,5 @@
 import { useState } from "react";
+import AuthenticationService from "../../api/todo/AuthenticationService";
 
 const LoginComponent = ({ navigate }) => {
     const [username, setUsername] = useState("");
@@ -22,6 +23,7 @@ const LoginComponent = ({ navigate }) => {
     const handleLogin = () => {
         // jon, dummy
         if (username === "jon" && password === "dummy") {
+            AuthenticationService.registerSuccessfulLogin(username, password);
             navigate(`/welcome/${username}`);
             setShowLoginSuccess(true);
             setHasLoginFailed(false);
