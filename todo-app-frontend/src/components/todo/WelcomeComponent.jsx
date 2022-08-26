@@ -4,6 +4,7 @@ import { useState } from "react";
 
 const WelcomeComponent = ({ params: { name } }) => {
     const [welcomeMessage, setWelcomeMessage] = useState(null);
+    const [errorMessage, setErrorMessage] = useState(null);
 
     const getWelcomeMessage = () => {
         // HelloWorldService.executeHelloWorldBeanService()
@@ -12,11 +13,19 @@ const WelcomeComponent = ({ params: { name } }) => {
         
         HelloWorldService.executeHelloWorldPathVariableService(name)
           .then((res) => handleSuccessfulResponse(res))
-          .catch((error) => console.log(error));
+          .catch((error) => handleRuntimeError(error));
     }
+
     const handleSuccessfulResponse = (response) => {
         console.log(response);
+        setErrorMessage(null);
         setWelcomeMessage(response.data.message);
+    }
+
+    const handleRuntimeError = (error) => {
+        console.log(error);
+        setWelcomeMessage(null);
+        setErrorMessage(error.message);
     }
     return (
       <>
@@ -35,6 +44,7 @@ const WelcomeComponent = ({ params: { name } }) => {
         </div>
         <div className="container">
           {welcomeMessage && <p>Welcome back {welcomeMessage}</p>}
+          {errorMessage && <p>Unfortunately, {errorMessage}</p>}
         </div>
       </>
     );

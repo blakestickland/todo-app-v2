@@ -7,32 +7,56 @@ import withNavigation from "./withNavigation";
 import withParams from "./withParams";
 import HeaderComponent from "./HeaderCompoent";
 import FooterComponent from "./FooterComponent";
+import AuthenticatedRoute from "./AuthenticatedRoute";
 
 const TodoApp = () => {
     const LoginComponentWithNavigation = withNavigation(LoginComponent);
     const WelcomeComponentWithParams = withParams(WelcomeComponent);
+    const HeaderCompoentWithNavigation = withNavigation(HeaderComponent);
+    const ListTodosComponentWithParamsAndNavigation = withParams(withNavigation(ListTodosComponent));
 
     return (
       <div className="TodoApp">
         <Router>
-            <HeaderComponent />
-            <Routes>
-                <Route path="/" exact element={<LoginComponentWithNavigation />} />
-                <Route path="/login" element={<LoginComponentWithNavigation />} />
-                <Route path="/welcome/:name" element={<WelcomeComponentWithParams />} />
-                <Route path="/todos" element={<ListTodosComponent />} />
-                <Route path="/logout" element={<LogoutComponent />} />
-                <Route
-                path="*"
-                element={
-                    <main style={{ padding: "1rem" }}>
-                    <p>An Error Occurred.</p>
-                    <p>There's nothing here!</p>
-                    </main>
-                }
-                />
-            </Routes>
-            <FooterComponent />
+          <HeaderCompoentWithNavigation />
+          <Routes>
+            <Route path="/" exact element={<LoginComponentWithNavigation />} />
+            <Route path="/login" element={<LoginComponentWithNavigation />} />
+            <Route
+              path="/welcome/:name"
+              element={
+                <AuthenticatedRoute>
+                  <WelcomeComponentWithParams />
+                </AuthenticatedRoute>
+              }
+            />
+            <Route
+              path="/todos"
+              element={
+                <AuthenticatedRoute>
+                  <ListTodosComponentWithParamsAndNavigation />
+                </AuthenticatedRoute>
+              }
+            />
+            <Route
+              path="/logout"
+              element={
+                <AuthenticatedRoute>
+                  <LogoutComponent />
+                </AuthenticatedRoute>
+              }
+            />
+            <Route
+              path="*"
+              element={
+                <main style={{ padding: "1rem" }}>
+                  <p>An Error Occurred.</p>
+                  <p>There's nothing here!</p>
+                </main>
+              }
+            />
+          </Routes>
+          <FooterComponent />
         </Router>
       </div>
     );
