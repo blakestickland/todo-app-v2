@@ -3,7 +3,7 @@ import TodoRow from "./TodoRow";
 import TodoDataService from "../../api/todo/TodoDataService";
 import AuthenticationService from "../../api/todo/AuthenticationService";
 
-const ListTodosComponent = ({ params: { name } }) => {
+const ListTodosComponent = ({ params: { name }, navigate }) => {
   const [todos, setTodos] = useState(null);
   const [message, setMessage] = useState(null);
 
@@ -18,16 +18,39 @@ const ListTodosComponent = ({ params: { name } }) => {
     );
   };
 
+  const updateTodoClicked = (id) => {
+    let username = AuthenticationService.getLoggedInUsername();
+    console.log(`Update : ${id} for ${username}`);
+    navigate(`/todos/${id}`);
+    // TodoDataService.updateTodo(username, id)
+    // .then (
+    //     response => {
+    //         setMessage(`Update of todo ${id} successful!`);
+    //         refreshTodos(username);
+    //     }
+    // )
+  };
+  // const handleLogin = () => {
+  //   // jon, dummy
+  //   if (username === "jon" && password === "dummy") {
+  //     AuthenticationService.registerSuccessfulLogin(username, password);
+  //     navigate(`/welcome/${username}`);
+  //     setShowLoginSuccess(true);
+  //     setHasLoginFailed(false);
+  //   } else {
+  //     console.log("Invalid Credentials at login");
+  //     setShowLoginSuccess(false);
+  //     setHasLoginFailed(true);
+  //   }
+  // };
+
   const deleteTodoClicked = (id) => {
     let username = AuthenticationService.getLoggedInUsername();
     // console.log("deleteMethod: ", id + " " + user);
-    TodoDataService.deleteTodo(username, id)
-    .then (
-        response => {
-            setMessage(`Deletion of todo ${id} successful!`);
-            refreshTodos(username);
-        }
-    )
+    TodoDataService.deleteTodo(username, id).then((response) => {
+      setMessage(`Deletion of todo ${id} successful!`);
+      refreshTodos(username);
+    });
   };
 
   return (
@@ -42,6 +65,7 @@ const ListTodosComponent = ({ params: { name } }) => {
               <th>Description</th>
               <th>Target date</th>
               <th>Completed?</th>
+              <th>Update</th>
               <th>Delete</th>
             </tr>
           </thead>
@@ -51,6 +75,7 @@ const ListTodosComponent = ({ params: { name } }) => {
                 <TodoRow
                   key={todo.id}
                   todo={todo}
+                  updateTodo={updateTodoClicked}
                   deleteTodo={deleteTodoClicked}
                 />
               ))}

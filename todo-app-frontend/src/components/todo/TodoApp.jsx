@@ -8,12 +8,14 @@ import withParams from "./withParams";
 import HeaderComponent from "./HeaderCompoent";
 import FooterComponent from "./FooterComponent";
 import AuthenticatedRoute from "./AuthenticatedRoute";
+import TodoComponent from "./TodoComponent";
 
 const TodoApp = () => {
     const LoginComponentWithNavigation = withNavigation(LoginComponent);
     const WelcomeComponentWithParams = withParams(WelcomeComponent);
     const HeaderCompoentWithNavigation = withNavigation(HeaderComponent);
     const ListTodosComponentWithParamsAndNavigation = withParams(withNavigation(ListTodosComponent));
+    const TodoComponentWithParams = withParams(TodoComponent);
 
     return (
       <div className="TodoApp">
@@ -35,6 +37,14 @@ const TodoApp = () => {
               element={
                 <AuthenticatedRoute>
                   <ListTodosComponentWithParamsAndNavigation />
+                </AuthenticatedRoute>
+              }
+            />
+            <Route
+              path="/todos/:id"
+              element={
+                <AuthenticatedRoute>
+                  <TodoComponentWithParams />
                 </AuthenticatedRoute>
               }
             />
