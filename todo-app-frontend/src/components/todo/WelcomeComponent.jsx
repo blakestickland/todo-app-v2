@@ -31,7 +31,7 @@ const WelcomeComponent = ({ params: { name } }) => {
       <>
         <h1>Welcome!</h1>
         <div className="container">
-          Welcome {name}. Manage your todos{" "}
+          Welcome {name}. Manage todos{" "}
           <Link className="li" to="/todos">
             here
           </Link>
