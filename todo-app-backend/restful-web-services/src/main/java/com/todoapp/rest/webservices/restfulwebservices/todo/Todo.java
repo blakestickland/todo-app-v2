@@ -10,6 +10,7 @@ public class Todo {
 	private Date targetDate;
 	private boolean isDone;
 	
+	// Default constructor so a PUT request can be made
 	protected Todo() {
 		
 	}

@@ -15,7 +15,7 @@ const TodoApp = () => {
     const WelcomeComponentWithParams = withParams(WelcomeComponent);
     const HeaderCompoentWithNavigation = withNavigation(HeaderComponent);
     const ListTodosComponentWithParamsAndNavigation = withParams(withNavigation(ListTodosComponent));
-    const TodoComponentWithParams = withParams(TodoComponent);
+    const TodoComponentWithParamsAndNavigation = withParams(withNavigation(TodoComponent));
 
     return (
       <div className="TodoApp">
@@ -44,7 +44,7 @@ const TodoApp = () => {
               path="/todos/:id"
               element={
                 <AuthenticatedRoute>
-                  <TodoComponentWithParams />
+                  <TodoComponentWithParamsAndNavigation />
                 </AuthenticatedRoute>
               }
             />
