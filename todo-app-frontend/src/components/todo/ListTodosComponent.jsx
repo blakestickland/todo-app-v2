@@ -22,27 +22,7 @@ const ListTodosComponent = ({ params: { name }, navigate }) => {
     let username = AuthenticationService.getLoggedInUsername();
     console.log(`Update : ${id} for ${username}`);
     navigate(`/todos/${id}`);
-    // TodoDataService.updateTodo(username, id)
-    // .then (
-    //     response => {
-    //         setMessage(`Update of todo ${id} successful!`);
-    //         refreshTodos(username);
-    //     }
-    // )
   };
-  // const handleLogin = () => {
-  //   // jon, dummy
-  //   if (username === "jon" && password === "dummy") {
-  //     AuthenticationService.registerSuccessfulLogin(username, password);
-  //     navigate(`/welcome/${username}`);
-  //     setShowLoginSuccess(true);
-  //     setHasLoginFailed(false);
-  //   } else {
-  //     console.log("Invalid Credentials at login");
-  //     setShowLoginSuccess(false);
-  //     setHasLoginFailed(true);
-  //   }
-  // };
 
   const deleteTodoClicked = (id) => {
     let username = AuthenticationService.getLoggedInUsername();
@@ -52,6 +32,12 @@ const ListTodosComponent = ({ params: { name }, navigate }) => {
       refreshTodos(username);
     });
   };
+
+  const addTodoClicked = () => {
+    let username = AuthenticationService.getLoggedInUsername();
+    console.log(`Create todo for ${username}`);
+    navigate(`/todos/-1`);
+  }
 
   return (
     <div>
@@ -81,6 +67,9 @@ const ListTodosComponent = ({ params: { name }, navigate }) => {
               ))}
           </tbody>
         </table>
+        <div>
+          <button className="btn btn-success" onClick={addTodoClicked}>Add</button>
+        </div>
       </div>
     </div>
   );
